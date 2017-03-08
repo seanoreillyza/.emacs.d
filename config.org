@@ -38,7 +38,7 @@ Sometimes Mac OS doesn't play nice with emacs. Here are some overrides that I've
 
 For smoother mouse scrolling, one line at a time (less "jumpy" than defaults).
 
-#+BEGIN_SRC 
+#+BEGIN_SRC emacs-lisp
 
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
   (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
