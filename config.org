@@ -7,8 +7,8 @@ Sets up customisations in a file separate from init.el
 
 #+BEGIN_SRC emacs-lisp
 
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file)
+;; (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+;; (load custom-file)
 
 (global-auto-revert-mode t)
 #+END_SRC
@@ -190,78 +190,15 @@ Provides fuzzy search capability
 #+BEGIN_SRC 
 
 #+END_SRC
-* Unsorted 
+* LISP
 #+BEGIN_SRC emacs-lisp
 
-
-
-  ;; company mode 
-  (add-hook 'after-init-hook 'global-company-mode)
-  (setq company-dabbrev-downcase 0)
-  (setq company-idle-delay 0)
-
-  (require 'rvm)
-  (rvm-use-default) ;; use rvm's default ruby for the current Emacs session
-
-  (projectile-rails-global-mode)
-
-  (define-key projectile-rails-mode-map (kbd "s-r")   'fiplr-find-file)
-  ;;
-
-
-  (add-to-list 'load-path
-                "~/.emacs.d/elpa/yasnippet-20170212.832")
-  (require 'yasnippet)
-  (yas-global-mode 1)
-
-
-
-  (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(custom-safe-themes
-     (quote
-      ("c7a9a68bd07e38620a5508fef62ec079d274475c8f92d75ed0c33c45fbe306bc" default)))
-   '(package-selected-packages
-     (quote
-      (rtags restclient web-mode hl-line+ expand-region yaml-mode yasnippet company fiplr  monokai-theme ox-twbs rvm evil magit slime color-theme ## robe flx-ido flymake-ruby projectile-rails exec-path-from-shell))))
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   )
-
-  (require 'flymake-ruby)
-  (add-hook 'ruby-mode-hook 'flymake-ruby-load)
-
-  ;; Display ido results vertically,Xrather than horizontally
-    (setq ido-decorations (quote ("\n-> " "" "\n   " "\n   ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
-    (defun ido-disable-line-truncation () (set (make-local-variable 'truncate-lines) nil))
-    (add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-truncation)
-    (defun ido-define-keys () ;; C-n/p is more intuitive in vertical layout
-      (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
-      (define-key ido-completion-map (kbd "C-p") 'ido-prev-match))
-    (add-hook 'ido-setup-hook 'ido-define-keys)
-
-  ;; jumping between files
-  (require 'robe)
-  (add-hook 'ruby-mode-hook 'robe-mode)
-
-
-
-
    ;; Set your lisp system and, optionally, some contribs
-   (setq inferior-lisp-program "/usr/local/bin/sbcl")
-  (setq slime-contribs '(slime-fancy))
+   ;; (setq inferior-lisp-program "/usr/local/bin/sbcl")
+   ;; (setq slime-contribs '(slime-fancy))
 
-  (require 'expand-region)
-  (global-set-key (kbd "C-=") 'er/expand-region)
-  (global-hl-line-mode +1)
-
-  (require 'ido)
-  (ido-mode t)
+#+END_SRC
+* Unsorted 
+#+BEGIN_SRC emacs-lisp
 
 #+END_SRC
