@@ -7,8 +7,8 @@ Sets up customisations in a file separate from init.el
 
 #+BEGIN_SRC emacs-lisp
 
-;; (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-;; (load custom-file)
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
 
 (global-auto-revert-mode t)
 #+END_SRC
@@ -18,7 +18,7 @@ Sets up customisations in a file separate from init.el
 These files will get loaded into a buffer at startup
 #+BEGIN_SRC emacs-lisp
 
-(find-file "~/Dropbox/notes.org") 
+;; (find-file "~/Dropbox/notes.org") 
 
 #+END_SRC
 
@@ -28,9 +28,12 @@ Sometimes Mac OS doesn't play nice with emacs. Here are some overrides that I've
 
 
 ** Environment paths 
-#+BEGIN_SRC 
+#+BEGIN_SRC emacs-lisp
 
-(exec-path-from-shell-initialize)
+  (use-package exec-path-from-shell
+    :ensure t 
+    :init
+    (exec-path-from-shell-initialize))
 
 #+END_SRC
 * Theme and UI
@@ -56,7 +59,7 @@ Set font size to 14.
 #+END_SRC
 ** Monokai 
 
-#+BEGIN_SRC 
+#+BEGIN_SRC emacs-lisp
 
 (use-package monokai-theme
   :if (window-system)
@@ -73,7 +76,7 @@ Git porcelain within emacs
 (use-package magit
   :ensure t
   :init
-  (global-set-key (kbd "C-x g") 'magit-status)
+  (global-set-key (kbd "C-x g") 'magit-status))
 
 #+END_SRC
 * Orgmode 
@@ -109,7 +112,7 @@ Git porcelain within emacs
 
 * IDO 
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC
 
   (use-package ido
                :ensure t
@@ -118,9 +121,9 @@ Git porcelain within emacs
                ;; fuzzy search
 
 
-  (use package flx-ido
-       :ensure
-
+  (use-package flx-ido
+       :ensure t 
+       :init 
        (ido-everywhere 1)
        (flx-ido-mode 1)
 
@@ -143,7 +146,7 @@ Git porcelain within emacs
 * Company mode
 
 #+BEGIN_SRC emacs-lisp
-  (use-package company-mode
+  (use-package company
                :ensure t
                :init 
                (add-hook 'after-init-hook 'global-company-mode)
@@ -173,7 +176,7 @@ Git porcelain within emacs
 ** Fiplr
 
 Provides fuzzy search capability 
-#+BEGIN_SRC emacs-lips
+#+BEGIN_SRC emacs-lisp
 
 
 #+END_SRC
@@ -183,7 +186,26 @@ Provides fuzzy search capability
 
 ** RVM
 
+rvm.el will change Emacs to use the right ruby version for the file in the current buffer. Remember that the new ruby version will be used for the whole Emacs session and not just the current file. 
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package rvm
+    :ensure t
+    :init
+    (rvm-use-default))
+
+#+END_SRC
 ** Robe 
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package robe
+    :ensure t
+    :init
+    (add-hook 'ruby-mode-hook 'robe-mode))
+
+#+END_SRC
 
 ** Projectile 
 
