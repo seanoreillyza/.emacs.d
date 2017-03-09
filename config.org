@@ -112,7 +112,7 @@ Git porcelain within emacs
 
 * IDO 
 
-#+BEGIN_SRC
+#+BEGIN_SRC emacs-lisp
 
   (use-package ido
                :ensure t
@@ -178,6 +178,10 @@ Git porcelain within emacs
 Provides fuzzy search capability 
 #+BEGIN_SRC emacs-lisp
 
+  (use-package fiplr
+    :ensure t
+    :init
+    (global-set-key (kbd "s-r") 'fiplr-find-file))
 
 #+END_SRC
 
@@ -209,7 +213,12 @@ rvm.el will change Emacs to use the right ruby version for the file in the curre
 
 ** Projectile 
 
-#+BEGIN_SRC 
+#+BEGIN_SRC emacs-lisp
+
+  (use-package projectile-rails
+    :ensure t
+    :init
+    (projectile-rails-global-mode))
 
 #+END_SRC
 * LISP
