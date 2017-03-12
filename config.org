@@ -92,14 +92,14 @@ Git porcelain within emacs
 
 ** Agenda files 
 
-#+BEGIN_SRC 
+#+BEGIN_SRC emacs-lisp
 
-(setq org-agenda-files (list "~/Dropbox/todo.org"))
+(setq org-agenda-files (list "~/Dropbox/org"))
 
 (setq org-log-done t)                             
 
 (setq org-todo-keywords
-        '((sequence "TODO(t)" "WAITING(w/!)" "|" "DONE(d!)" "CANCELLED(c)")))
+        '((sequence "TODO(t)" "WAITING(w!)" "|" "DONE(d!)" "CANCELLED(c)")))
 #+END_SRC
 
 ** Spelling in orgmode 
