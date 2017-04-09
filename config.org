@@ -11,6 +11,7 @@ Sets up customisations in a file separate from init.el
   (load custom-file)
 
   (global-auto-revert-mode t)
+  (global-hl-line-mode)
 
 
   (setq backup-directory-alist
@@ -18,15 +19,6 @@ Sets up customisations in a file separate from init.el
 
   (setq auto-save-file-name-transforms
     `((".*" "~/.emacs_saves/" t)))
-#+END_SRC
-
-* Startup files
-
-These files will get loaded into a buffer at startup
-#+BEGIN_SRC emacs-lisp
-
-;; (find-file "~/Dropbox/notes.org") 
-
 #+END_SRC
 
 * macOS
@@ -42,6 +34,16 @@ Sometimes Mac OS doesn't play nice with emacs. Here are some overrides that I've
     :init
     (exec-path-from-shell-initialize))
 
+#+END_SRC
+* GPG
+
+#+BEGIN_SRC emacs-lisp
+
+(require 'epa-file)
+(epa-file-enable)
+(setq epa-pinentry-mode 'loopback)
+; This will force Emacs to use its own internal password prompt instead of an external pin entry program.
+(setenv "GPG_AGENT_INFO" nil)
 #+END_SRC
 * Theme and UI
 ** Mouse scroll
@@ -64,18 +66,6 @@ Set font size to 14.
 (set-face-attribute 'default nil :height 140)
 
 #+END_SRC
-** Monokai 
-
-#+BEGIN_SRC emacs-lisp
-
-(use-package monokai-theme
-  :if (window-system)
-  :ensure t
-  :init
-  (setq monokai-use-variable-pitch nil))
-
-#+END_SRC
-
 * Magit 
 
 Git porcelain within emacs 
@@ -87,6 +77,11 @@ Git porcelain within emacs
 
 #+END_SRC
 * Orgmode 
+#+BEGIN_SRC emacs-lisp
+  
+(setq org-directory "~/Dropbox/org")
+
+#+END_SRC
 
 ** Key bindings 
 
@@ -101,12 +96,12 @@ Git porcelain within emacs
 
 #+BEGIN_SRC emacs-lisp
 
-(setq org-agenda-files (list "~/Dropbox/org"))
+  (setq org-agenda-files (list(concat org-directory "/todos.org")))
 
-(setq org-log-done t)                             
+  (setq org-log-done t)                             
 
-(setq org-todo-keywords
-        '((sequence "TODO(t)" "WAITING(w!)" "|" "DONE(d!)" "CANCELLED(c)")))
+  (setq org-todo-keywords
+	  '((sequence "TODO(t)" "WAITING(w!)" "|" "DONE(d!)" "CANCELLED(c)")))
 #+END_SRC
 
 ** Spelling in orgmode 
@@ -125,6 +120,26 @@ Git porcelain within emacs
   '(require 'ox-md nil t))
 
 #+END_SRC
+
+** Capture
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-default-notes-file (concat org-directory "/todos.org"))
+  (define-key global-map "\C-cc" 'org-capture)
+
+
+  (setq org-capture-templates '((
+       "t"                ; key
+       "Todo"             ; description
+       entry              ; type
+       (file+headline org-default-notes-file "Tasks")       ; target
+       "* TODO [#B] %^{Todo} %(org-set-tags) \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?"  ; template
+       :prepend t        ; properties
+       :empty-lines 1    ; properties
+       :created t        ; properties
+       )))
+#+END_SRC
+
 * IDO 
 
 #+BEGIN_SRC emacs-lisp
@@ -169,20 +184,6 @@ Git porcelain within emacs
                (setq company-idle-delay 0))
 
 #+END_SRC
-* NeoTree
-
-
-A emacs tree plugin like NerdTree for Vim.
-
-
-#+BEGIN_SRC emacs-lisp 
-    (use-package neotree
-                 :ensure t
-                 :init 
-                 ;(add-to-list 'load-path "/some/path/neotree")
-                 (global-set-key [f8] 'neotree-toggle))
-
-#+END_SRC
 
 * Web mode
 
@@ -201,7 +202,16 @@ A emacs tree plugin like NerdTree for Vim.
 
 #+END_SRC
 
+* Javascript 
 
+#+BEGIN_SRC emacs-lisp
+
+  (use-package js2-mode
+    :ensure t
+    :init
+    (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
+
+#+END_SRC
 * Graphviz
 
 For Graphviz diagrams and plantUML
@@ -271,7 +281,57 @@ rvm.el will change Emacs to use the right ruby version for the file in the curre
    ;; (setq slime-contribs '(slime-fancy))
 
 #+END_SRC
-* Unsorted 
+* Octave
+
+Associate matlab files with octave mode.
 #+BEGIN_SRC emacs-lisp
+  (use-package octave
+    :ensure t
+    :init 
+    (autoload 'octave-mode "octave-mod" nil t)
+    (setq auto-mode-alist
+          (cons '("\\.m$" . octave-mode) auto-mode-alist)))
 
 #+END_SRC
+* Expand region 
+#+BEGIN_SRC emacs-lisp
+  (use-package expand-region
+    :ensure t
+    :init
+    (global-set-key (kbd "C-=") 'er/expand-region))
+#+END_SRC
+* AVY 
+
+Jump to things in emacs. Check out avy copy region. 
+#+BEGIN_SRC emacs-lisp
+
+  (use-package avy
+    :ensure t
+    :init
+    (global-set-key (kbd "C-:") 'avy-goto-char))
+
+#+END_SRC
+* RSS Feed - Elfeed
+
+Check out Elfeed org to organise feeds using an org file 
+
+#+BEGIN_SRC emacs-lisp 
+    (use-package elfeed
+      :ensure t
+      :init
+      (global-set-key (kbd "C-x w") 'elfeed))
+
+  (use-package elfeed-org
+    :ensure t
+    :init
+    (setq rmh-elfeed-org-files (list (concat org-directory "/elfeed.org"))))
+    
+#+END_SRC
+
+
+
+
+
+
+
+

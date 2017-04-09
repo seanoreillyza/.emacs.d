@@ -9,3 +9,7 @@
 /helm-doc.org
 /url/
 /tramp
+.org-id-locations
+/eshell/
+/projectile.cache
+/tutorial/
