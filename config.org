@@ -7,10 +7,17 @@ Sets up customisations in a file separate from init.el
 
 #+BEGIN_SRC emacs-lisp
 
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file)
+  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+  (load custom-file)
 
-(global-auto-revert-mode t)
+  (global-auto-revert-mode t)
+
+
+  (setq backup-directory-alist
+    `((".*" . , "~/.emacs_saves/")))
+
+  (setq auto-save-file-name-transforms
+    `((".*" "~/.emacs_saves/" t)))
 #+END_SRC
 
 * Startup files
