@@ -117,6 +117,14 @@ Git porcelain within emacs
 
 #+END_SRC
 
+** Export back-ends
+
+#+BEGIN_SRC emacs-lisp
+
+(eval-after-load "org"
+  '(require 'ox-md nil t))
+
+#+END_SRC
 * IDO 
 
 #+BEGIN_SRC emacs-lisp
