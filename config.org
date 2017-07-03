@@ -186,6 +186,17 @@ Git porcelain within emacs
 
 #+END_SRC
 
+* Graphviz
+
+For Graphviz diagrams and plantUML
+#+BEGIN_SRC emacs-lisp
+
+  (use-package graphviz-dot-mode
+    :ensure t
+    :init
+    (add-to-list 'auto-mode-alist '("\\.dot\\'" . graphviz-dot-mode))))
+
+#+END_SRC
 * File and directory navigation
 
 ** Fiplr
