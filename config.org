@@ -169,6 +169,21 @@ Git porcelain within emacs
                (setq company-idle-delay 0))
 
 #+END_SRC
+* NeoTree
+
+
+A emacs tree plugin like NerdTree for Vim.
+
+
+#+BEGIN_SRC emacs-lisp 
+    (use-package neotree
+                 :ensure t
+                 :init 
+                 ;(add-to-list 'load-path "/some/path/neotree")
+                 (global-set-key [f8] 'neotree-toggle))
+
+#+END_SRC
+
 * Web mode
 
 #+BEGIN_SRC emacs-lisp
@@ -185,6 +200,7 @@ Git porcelain within emacs
     (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode)))
 
 #+END_SRC
+
 
 * Graphviz
 
