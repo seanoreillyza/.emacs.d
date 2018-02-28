@@ -267,10 +267,14 @@ rvm.el will change Emacs to use the right ruby version for the file in the curre
 
 #+BEGIN_SRC emacs-lisp
 
-  (use-package projectile-rails
+  (use-package projectile
     :ensure t
-    :init
-    (projectile-rails-global-mode))
+    )
+
+    (use-package projectile-rails
+      :ensure t
+      :init
+      (projectile-rails-global-mode))
 
 #+END_SRC
 * LISP
@@ -335,3 +339,11 @@ Check out Elfeed org to organise feeds using an org file
 
 
 
+* Helm
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package helm-projectile
+    :ensure t)
+
+#+END_SRC
