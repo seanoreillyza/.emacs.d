@@ -1,7 +1,7 @@
-#+TITLE: Emacs configuration 
-#+AUTHOR: Sean O'Reilly 
+#+TITLE: Emacs configuration
+#+AUTHOR: Sean O'Reilly
 
-* Custom settings 
+* Custom settings
 
 Sets up customisations in a file separate from init.el
 
@@ -13,12 +13,14 @@ Sets up customisations in a file separate from init.el
   (global-auto-revert-mode t)
   (global-hl-line-mode)
 
+  (setq show-paren-delay 0)
+  (show-paren-mode 1)
 
   (setq backup-directory-alist
-    `((".*" . , "~/.emacs_saves/")))
+        `((".*" . , "~/.emacs_saves/")))
 
   (setq auto-save-file-name-transforms
-    `((".*" "~/.emacs_saves/" t)))
+        `((".*" "~/.emacs_saves/" t)))
 #+END_SRC
 
 * macOS
@@ -26,11 +28,11 @@ Sets up customisations in a file separate from init.el
 Sometimes Mac OS doesn't play nice with emacs. Here are some overrides that I've needed to use.
 
 
-** Environment paths 
+** Environment paths
 #+BEGIN_SRC emacs-lisp
 
   (use-package exec-path-from-shell
-    :ensure t 
+    :ensure t
     :init
     (exec-path-from-shell-initialize))
 
@@ -66,9 +68,9 @@ Set font size to 14.
 (set-face-attribute 'default nil :height 140)
 
 #+END_SRC
-* Magit 
+* Magit
 
-Git porcelain within emacs 
+Git porcelain within emacs
 #+BEGIN_SRC emacs-lisp
 (use-package magit
   :ensure t
@@ -140,7 +142,7 @@ Git porcelain within emacs
        )))
 #+END_SRC
 
-* IDO 
+* IDO
 
 #+BEGIN_SRC emacs-lisp
 
@@ -152,8 +154,8 @@ Git porcelain within emacs
 
 
   (use-package flx-ido
-       :ensure t 
-       :init 
+       :ensure t
+       :init
        (ido-everywhere 1)
        (flx-ido-mode 1)
 
@@ -178,7 +180,7 @@ Git porcelain within emacs
 #+BEGIN_SRC emacs-lisp
   (use-package company
                :ensure t
-               :init 
+               :init
                (add-hook 'after-init-hook 'global-company-mode)
                (setq company-dabbrev-downcase 0)
                (setq company-idle-delay 0))
@@ -191,7 +193,7 @@ Git porcelain within emacs
 
   (use-package web-mode
     :ensure t
-    :init 
+    :init
     (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
@@ -202,7 +204,7 @@ Git porcelain within emacs
 
 #+END_SRC
 
-* Javascript 
+* Javascript
 
 #+BEGIN_SRC emacs-lisp
 
@@ -227,7 +229,7 @@ For Graphviz diagrams and plantUML
 
 ** Fiplr
 
-Provides fuzzy search capability 
+Provides fuzzy search capability
 #+BEGIN_SRC emacs-lisp
 
   (use-package fiplr
@@ -237,12 +239,36 @@ Provides fuzzy search capability
 
 #+END_SRC
 
-* Ruby on Rails development 
 
+* Trailing whitespace
+
+Remove trailing whitespace with each save
+#+BEGIN_SRC emacs-lisp
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+END_SRC
+
+* Ruby on Rails development
+
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
+#+END_SRC
+
+** Rubocop
+
+ #+BEGIN_SRC emacs-lisp
+
+;(add-hook 'ruby-mode-hook #'rubocop-mode)
+
+ #+END_SRC
 
 ** RVM
 
-rvm.el will change Emacs to use the right ruby version for the file in the current buffer. Remember that the new ruby version will be used for the whole Emacs session and not just the current file. 
+rvm.el will change Emacs to use the right ruby version for the file in the current buffer. Remember that the new ruby version will be used for the whole Emacs session and not just the current file.
 
 #+BEGIN_SRC emacs-lisp
 
@@ -252,7 +278,7 @@ rvm.el will change Emacs to use the right ruby version for the file in the curre
     (rvm-use-default))
 
 #+END_SRC
-** Robe 
+** Robe
 
 #+BEGIN_SRC emacs-lisp
 
@@ -263,7 +289,7 @@ rvm.el will change Emacs to use the right ruby version for the file in the curre
 
 #+END_SRC
 
-** Projectile 
+** Projectile
 
 #+BEGIN_SRC emacs-lisp
 
@@ -291,22 +317,22 @@ Associate matlab files with octave mode.
 #+BEGIN_SRC emacs-lisp
   (use-package octave
     :ensure t
-    :init 
+    :init
     (autoload 'octave-mode "octave-mod" nil t)
     (setq auto-mode-alist
           (cons '("\\.m$" . octave-mode) auto-mode-alist)))
 
 #+END_SRC
-* Expand region 
+* Expand region
 #+BEGIN_SRC emacs-lisp
   (use-package expand-region
     :ensure t
     :init
     (global-set-key (kbd "C-=") 'er/expand-region))
 #+END_SRC
-* AVY 
+* AVY
 
-Jump to things in emacs. Check out avy copy region. 
+Jump to things in emacs. Check out avy copy region.
 #+BEGIN_SRC emacs-lisp
 
   (use-package avy
@@ -317,9 +343,9 @@ Jump to things in emacs. Check out avy copy region.
 #+END_SRC
 * RSS Feed - Elfeed
 
-Check out Elfeed org to organise feeds using an org file 
+Check out Elfeed org to organise feeds using an org file
 
-#+BEGIN_SRC emacs-lisp 
+#+BEGIN_SRC emacs-lisp
     (use-package elfeed
       :ensure t
       :init
@@ -329,7 +355,7 @@ Check out Elfeed org to organise feeds using an org file
     :ensure t
     :init
     (setq rmh-elfeed-org-files (list (concat org-directory "/elfeed.org"))))
-    
+
 #+END_SRC
 
 
@@ -345,5 +371,44 @@ Check out Elfeed org to organise feeds using an org file
 
   (use-package helm-projectile
     :ensure t)
+
+#+END_SRC
+* Ag
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package ag
+    :ensure t)
+
+#+END_SRC
+* Smart Parens
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package smartparens
+    :ensure t
+    :config
+    (require 'smartparens-config)
+    (add-hook 'js-mode-hook #'smartparens-mode)
+    (add-hook 'ruby-mode-hook #'smartparens-mode))
+
+(smartparens-strict-mode t)
+#+END_SRC
+* PlantUML
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package plantuml-mode
+    :ensure t)
+
+;; Enable plantuml-mode for PlantUML files
+(add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+
+#+END_SRC
+* Dired Jump
+
+#+BEGIN_SRC emacs-lisp
+;; enable dired jump with C-x C-j
+(require 'dired-x)
 
 #+END_SRC
