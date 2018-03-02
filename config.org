@@ -78,35 +78,35 @@ Git porcelain within emacs
   (global-set-key (kbd "C-x g") 'magit-status))
 
 #+END_SRC
-* Orgmode 
+* Orgmode
 #+BEGIN_SRC emacs-lisp
-  
+
 (setq org-directory "~/Dropbox/org")
 
 #+END_SRC
 
-** Key bindings 
+** Key bindings
 
-#+BEGIN_SRC emacs-lisp 
+#+BEGIN_SRC emacs-lisp
 
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 
 #+END_SRC
 
-** Agenda files 
+** Agenda files
 
 #+BEGIN_SRC emacs-lisp
 
   (setq org-agenda-files (list(concat org-directory "/todos.org")))
 
-  (setq org-log-done t)                             
+  (setq org-log-done t)
 
   (setq org-todo-keywords
 	  '((sequence "TODO(t)" "WAITING(w!)" "|" "DONE(d!)" "CANCELLED(c)")))
 #+END_SRC
 
-** Spelling in orgmode 
+** Spelling in orgmode
 
 #+BEGIN_SRC emacs-lisp
 
@@ -410,5 +410,21 @@ Check out Elfeed org to organise feeds using an org file
 #+BEGIN_SRC emacs-lisp
 ;; enable dired jump with C-x C-j
 (require 'dired-x)
+
+#+END_SRC
+
+* Dumb jump
+Jump to definition package
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package dumb-jump
+  :bind (("M-g o" . dumb-jump-go-other-window)
+         ("M-g j" . dumb-jump-go)
+         ("M-g i" . dumb-jump-go-prompt)
+         ("M-g x" . dumb-jump-go-prefer-external)
+         ("M-g z" . dumb-jump-go-prefer-external-other-window))
+  :config (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
+  :ensure)
 
 #+END_SRC
