@@ -79,10 +79,11 @@ Git porcelain within emacs
 
 #+END_SRC
 * Orgmode
+
+I normally symlink this directory
+
 #+BEGIN_SRC emacs-lisp
-
-(setq org-directory "~/Dropbox/org")
-
+(setq org-directory "~/org")
 #+END_SRC
 
 ** Key bindings
@@ -337,8 +338,7 @@ Jump to things in emacs. Check out avy copy region.
 
   (use-package avy
     :ensure t
-    :init
-    (global-set-key (kbd "C-:") 'avy-goto-char))
+    )
 
 #+END_SRC
 * RSS Feed - Elfeed
@@ -351,19 +351,12 @@ Check out Elfeed org to organise feeds using an org file
       :init
       (global-set-key (kbd "C-x w") 'elfeed))
 
-  (use-package elfeed-org
-    :ensure t
-    :init
-    (setq rmh-elfeed-org-files (list (concat org-directory "/elfeed.org"))))
+  ;; (use-package elfeed-org
+  ;;   :ensure t
+  ;;   :init
+  ;;   (setq rmh-elfeed-org-files (list (concat org-directory "/elfeed.org"))))
 
 #+END_SRC
-
-
-
-
-
-
-
 
 * Helm
 
@@ -426,5 +419,76 @@ Jump to definition package
          ("M-g z" . dumb-jump-go-prefer-external-other-window))
   :config (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
   :ensure)
+
+#+END_SRC
+
+* Rainbow identifiers
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package rainbow-identifiers
+    :ensure t
+    :config
+    (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
+
+#+END_SRC
+
+
+* Rainbow parens
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package rainbow-delimeters
+    :ensure t
+    :config
+    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+#+END_SRC
+* Org clip-link
+Copies the URL and title of a weblink for org files
+#+BEGIN_SRC emacs-lisp
+  (use-package org-cliplink
+    :ensure t)
+
+  (global-set-key (kbd "C-x p i") 'org-cliplink)
+#+END_SRC
+
+* CRUX
+A Collection of Ridiculously Useful eXtensions for Emacs. crux bundles a few useful interactive commands to enhance your overall Emacs experience.
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package crux
+    :ensure t)
+
+#+END_SRC
+* Key chord mode
+
+#+BEGIN_SRC emacs-lisp
+
+    ;; shamelessly stolen from Prelude package
+
+    (use-package key-chord
+      :ensure t
+      :init
+      (key-chord-mode 1))
+
+
+    (key-chord-define-global "jj" 'avy-goto-word-1)
+    (key-chord-define-global "jl" 'avy-goto-line)
+    (key-chord-define-global "jk" 'avy-goto-char)
+    (key-chord-define-global "JJ" 'crux-switch-to-previous-buffer)
+    ;; (key-chord-define-global "uu" 'undo-tree-visualize)
+    ;; (key-chord-define-global "xx" 'execute-extended-command)
+    ;; (key-chord-define-global "yy" 'browse-kill-ring)
+
+    (defvar key-chord-tips '("Press <jj> quickly to jump to the beginning of a visible word."
+                             "Press <jl> quickly to jump to a visible line."
+                             "Press <jk> quickly to jump to a visible character."
+                             "Press <JJ> quickly to switch to previous buffer."
+                             "Press <uu> quickly to visualize the undo tree."
+                             "Press <xx> quickly to execute extended command."
+                             "Press <yy> quickly to browse the kill ring."))
+
 
 #+END_SRC
