@@ -293,15 +293,17 @@ rvm.el will change Emacs to use the right ruby version for the file in the curre
 ** Projectile
 
 #+BEGIN_SRC emacs-lisp
-
+  (setq projectile-known-projects-file "~/projectile-bookmarks.eld")
   (use-package projectile
     :ensure t
+    :config
+    (projectile-global-mode)
     )
 
-    (use-package projectile-rails
-      :ensure t
-      :init
-      (projectile-rails-global-mode))
+  (use-package projectile-rails
+    :ensure t
+    :init
+    (projectile-rails-global-mode))
 
 #+END_SRC
 * LISP
@@ -438,10 +440,10 @@ Jump to definition package
 
 #+BEGIN_SRC emacs-lisp
 
-  (use-package rainbow-delimeters
-    :ensure t
-    :config
-    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+  ;; (use-package rainbow-delimeters
+  ;;   :ensure t
+  ;;   :config
+  ;;   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 #+END_SRC
 * Org clip-link
@@ -490,5 +492,15 @@ A Collection of Ridiculously Useful eXtensions for Emacs. crux bundles a few use
                              "Press <xx> quickly to execute extended command."
                              "Press <yy> quickly to browse the kill ring."))
 
+
+#+END_SRC
+* Dashboard
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package dashboard
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook))
 
 #+END_SRC
