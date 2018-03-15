@@ -1,6 +1,22 @@
 #+TITLE: Emacs configuration
 #+AUTHOR: Sean O'Reilly
-
+* Loading my configuration file
+I'm constantly loading, editing and reloading my config.org file. Thanks Uncle Dave for these functions.
+** Open configuration file
+#+BEGIN_SRC emacs-lisp
+(defun config-visit ()
+  (interactive)
+  (find-file "~/.emacs.d/config.org"))
+(global-set-key (kbd "C-c e") 'config-visit)
+#+END_SRC
+** Reload configuration file
+#+BEGIN_SRC emacs-lisp
+(defun config-reload ()
+  "Reloads ~/.emacs.d/config.org at runtime"
+  (interactive)
+  (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+(global-set-key (kbd "C-c r") 'config-reload)
+#+END_SRC
 * Custom settings
 
 Sets up customisations in a file separate from init.el
@@ -529,4 +545,14 @@ Jump quickly to a terminal. I'm using zsh right now.
 
   (global-set-key (kbd "<s-return>") 'ansi-term)
 
+#+END_SRC
+* Swiper
+
+Replacement for default search
+
+#+BEGIN_SRC emacs-lisp
+  (use-package swiper
+    :ensure t
+    :bind ("C-s" . swiper))
+  (setq ivy-display-style 'fancy)
 #+END_SRC
