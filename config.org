@@ -517,3 +517,16 @@ A Collection of Ridiculously Useful eXtensions for Emacs. crux bundles a few use
     :ensure t)
 
 #+END_SRC
+* Terminal and bash
+Jump quickly to a terminal. I'm using zsh right now.
+
+#+BEGIN_SRC emacs-lisp
+  (defvar my-term-shell "/bin/zsh")
+  (defadvice ansi-term (before force-bash)
+    (interactive (list my-term-shell)))
+  (ad-activate 'ansi-term)
+
+
+  (global-set-key (kbd "<s-return>") 'ansi-term)
+
+#+END_SRC
