@@ -556,3 +556,11 @@ Replacement for default search
     :bind ("C-s" . swiper))
   (setq ivy-display-style 'fancy)
 #+END_SRC
+* Guru mode
+#+BEGIN_SRC emacs-lisp
+  (use-package guru-mode
+    :ensure t
+    :config
+    (add-hook 'prog-mode-hook 'guru-mode))
+
+#+END_SRC
