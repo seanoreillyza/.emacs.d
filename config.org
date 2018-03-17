@@ -396,15 +396,13 @@ Check out Elfeed org to organise feeds using an org file
 * Smart Parens
 
 #+BEGIN_SRC emacs-lisp
-
   (use-package smartparens
     :ensure t
     :config
     (require 'smartparens-config)
-    (add-hook 'js-mode-hook #'smartparens-mode)
-    (add-hook 'ruby-mode-hook #'smartparens-mode))
+    (add-hook 'prog-mode-hook 'smartparens-mode))
 
-(smartparens-strict-mode t)
+  (smartparens-strict-mode t)
 #+END_SRC
 * PlantUML
 
