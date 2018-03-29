@@ -359,7 +359,7 @@ Jump to things in emacs. Check out avy copy region.
     )
 
 #+END_SRC
-* RSS Feed - Elfeed
+* Elfeed
 
 Check out Elfeed org to organise feeds using an org file
 
@@ -376,6 +376,12 @@ Check out Elfeed org to organise feeds using an org file
     (setq rmh-elfeed-org-files (list (concat org-directory "/elfeed.org"))))
 
 
+  ;; Star and unstar items
+  (defalias 'elfeed-toggle-star
+    (elfeed-expose #'elfeed-search-toggle-all 'star))
+
+  (eval-after-load 'elfeed-search
+    '(define-key elfeed-search-mode-map (kbd "m") 'elfeed-toggle-star))
 #+END_SRC
 
 * Helm
