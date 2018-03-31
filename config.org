@@ -152,7 +152,7 @@ I normally symlink this directory
        "Todo"             ; description
        entry              ; type
        (file+headline org-default-notes-file "Tasks")       ; target
-       "* TODO [#B] %^{Todo} %(org-set-tags) \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?"  ; template
+       "* TODO %^{Todo} %^g \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?"  ; template
        :prepend t        ; properties
        :empty-lines 1    ; properties
        :created t        ; properties
