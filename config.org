@@ -7,7 +7,7 @@ I'm constantly loading, editing and reloading my config.org file. Thanks Uncle D
 (defun config-visit ()
   (interactive)
   (find-file "~/.emacs.d/config.org"))
-(global-set-key (kbd "C-c e") 'config-visit)
+(global-set-key (kbd "C-c e" ) 'config-visit)
 #+END_SRC
 ** Reload configuration file
 #+BEGIN_SRC emacs-lisp
@@ -676,6 +676,9 @@ Replacement for default search
   ;; customisations
   ;;(define-key xah-fly-leader-keymap (kbd ".") 'dumb-jump-go)
   (define-key xah-fly-leader-key-map (kbd ".") 'dumb-jump-go)
+  (define-key xah-fly-leader-key-map (kbd "f") 'helm-projectile)
+  (define-key xah-fly-leader-key-map (kbd "*")
+  (lambda () (interactive) (swiper (format "\\<%s\\>" (thing-at-point 'symbol)))))
 #+END_SRC
 * Whichkey
 #+BEGIN_SRC emacs-lisp
