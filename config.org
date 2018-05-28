@@ -674,12 +674,9 @@ Replacement for default search
     (xah-fly-keys-set-layout "qwerty")
     (xah-fly-keys 1))
   ;; customisations
-  ;;(define-key xah-fly-leader-keymap (kbd ".") 'dumb-jump-go)
   (define-key xah-fly-leader-key-map (kbd ".") 'dumb-jump-go)
   (define-key xah-fly-leader-key-map (kbd "f") 'fiplr-find-file)
   (define-key xah-fly-leader-key-map (kbd "b") 'helm-buffers-list)
-  (define-key xah-fly-leader-key-map (kbd "*")
-  (lambda () (interactive) (swiper (format "\\<%s\\>" (thing-at-point 'symbol)))))
 #+END_SRC
 * Whichkey
 #+BEGIN_SRC emacs-lisp
